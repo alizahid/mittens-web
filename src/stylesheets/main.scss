@@ -1,0 +1,167 @@
+// imports
+
+@import 'variables';
+@import 'responsive';
+
+// reset
+
+*,
+*:after,
+*:before {
+  border-radius: 0;
+  box-sizing: border-box;
+  font-weight: normal;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+// global
+
+body {
+  align-items: center;
+  background: $color-background;
+  color: $color-text;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  font: normal 1em/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  justify-content: center;
+  min-height: calc(100vh - 4em * 2);
+  margin: 4em 2em;
+  text-align: center;
+}
+
+a {
+  color: $color-accent;
+  text-decoration: none;
+  transition: 300ms;
+
+  &:active,
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+h1,
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1em;
+}
+
+img {
+  border: none;
+  max-width: 100%;
+}
+
+// layout
+
+header {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  h1 {
+    margin: 1rem 0;
+  }
+
+  h3 {
+    line-height: 1.4;
+  }
+}
+
+main {
+  margin: 2em 0;
+
+  section {
+    margin: 2em 0;
+
+    &.screenshots {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+
+      figure {
+        background: black;
+        border-radius: 2em;
+        padding: 4em 1em;
+        position: relative;
+
+        &:before {
+          background: rgba(255, 255, 255, 0.125);
+          border-radius: 0.5em;
+          content: '';
+          height: 0.25em;
+          left: calc(50% - 2em);
+          position: absolute;
+          top: 2em;
+          width: 4em;
+        }
+
+        &:after {
+          background: rgba(255, 255, 255, 0.125);
+          border-radius: 100%;
+          bottom: 0.5em;
+          content: '';
+          height: 3em;
+          left: calc(50% - 1.5em);
+          position: absolute;
+          width: 3em;
+        }
+
+        img {
+        }
+      }
+    }
+  }
+}
+
+footer {
+  font-size: 0.875em;
+
+  p {
+    color: $color-text-light;
+  }
+
+  aside {
+    display: flex;
+    margin-top: 1em;
+
+    a {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 1.5em auto;
+      filter: grayscale(100%);
+      height: 2em;
+      width: 2em;
+
+      &:active,
+      &:hover {
+        filter: grayscale(0);
+      }
+
+      &:not(:first-child) {
+        margin-left: 1em;
+      }
+
+      &.dribbble {
+        background-image: url('../img/social/dribbble.svg');
+      }
+
+      &.github {
+        background-image: url('../img/social/github.svg');
+      }
+
+      &.twitter {
+        background-image: url('../img/social/twitter.svg');
+      }
+    }
+  }
+}
