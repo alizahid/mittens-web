@@ -9,8 +9,6 @@ node_modules
 
 # output
 public/assets/css/main.css
-public/assets/js/main.js
-public/index.html
 
 # env
 .env

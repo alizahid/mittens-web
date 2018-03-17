@@ -89,13 +89,13 @@ main {
       justify-content: center;
 
       figure {
-        background: black;
-        border-radius: 2em;
+        background: $color-primary-dark;
+        border-radius: 1.5em;
         padding: 4em 1em;
         position: relative;
 
         &:before {
-          background: rgba(255, 255, 255, 0.125);
+          background: $color-primary;
           border-radius: 0.5em;
           content: '';
           height: 0.25em;
@@ -106,7 +106,7 @@ main {
         }
 
         &:after {
-          background: rgba(255, 255, 255, 0.125);
+          background: $color-primary;
           border-radius: 100%;
           bottom: 0.5em;
           content: '';
@@ -117,6 +117,7 @@ main {
         }
 
         img {
+          border-radius: 0.25em;
         }
       }
     }
