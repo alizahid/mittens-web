@@ -17,10 +17,11 @@
     "glob": "^7.1.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^5.0.0",
-    "gulp-clean-css": "^3.9.2",
+    "gulp-clean-css": "^3.9.3",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^3.1.0",
     "gulp-server-livereload": "^1.9.2",
+    "lodash.difference": "^4.5.0",
     "mz": "^2.7.0"
   }
 }
