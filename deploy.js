@@ -12,11 +12,11 @@ const ftp = new FtpDeploy()
 
 const config = {
   host: FTP_HOST,
-  username: FTP_USER,
+  localRoot: __dirname + LOCAL_PATH,
   password: FTP_PASSWORD,
   port: 21,
-  localRoot: __dirname + LOCAL_PATH,
-  remoteRoot: '/'
+  remoteRoot: '/',
+  user: FTP_USER
 }
 
 const lastDeployed = async () => {
@@ -55,12 +55,6 @@ const includedFiles = async (files, time) => {
   return eligible.map(file => file.substr(LOCAL_PATH.length))
 }
 
-const excludedFiles = (files, included) => {
-  const different = difference(files.map(file => file), included)
-
-  return different.map(file => file.substr(LOCAL_PATH.length))
-}
-
 const updatedAfter = async (path, time) => {
   const file = await fs.stat(path)
 
@@ -74,13 +68,7 @@ const run = async () => {
 
   const files = await find('public/**/*.*')
 
-  const included = await includedFiles(files, time)
-  const excluded = excludedFiles(files, included)
-
-  config.include = included
-  config.exclude = ['.DS_Store', ...excluded]
-
-  console.log('Deploying...')
+  config.include = await includedFiles(files, time)
 
   ftp.deploy(config, async err => {
     if (err) {
