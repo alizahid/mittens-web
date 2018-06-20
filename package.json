@@ -12,14 +12,14 @@
     "deploy": "gulp && node -r dotenv/config deploy"
   },
   "devDependencies": {
-    "dotenv": "^5.0.1",
-    "ftp-deploy": "^1.2.2",
+    "dotenv": "^6.0.0",
+    "ftp-deploy": "^2.1.1",
     "glob": "^7.1.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^5.0.0",
-    "gulp-clean-css": "^3.9.3",
+    "gulp-clean-css": "^3.9.4",
     "gulp-concat": "^2.6.1",
-    "gulp-sass": "^3.1.0",
+    "gulp-sass": "^4.0.1",
     "gulp-server-livereload": "^1.9.2",
     "lodash.difference": "^4.5.0",
     "mz": "^2.7.0"
