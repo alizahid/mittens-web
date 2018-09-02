@@ -1,29 +1,24 @@
 const { FTP_HOST, FTP_USER, FTP_PASSWORD } = process.env
 
-const LOCAL_PATH = '/public'
-const LAST_DEPLOY = '.last_deploy'
+const LOCAL_PATH = './public'
+const LAST_DEPLOY = './.last_deploy'
 
-const difference = require('lodash.difference')
-const fs = require('mz/fs')
-const FtpDeploy = require('ftp-deploy')
+const { dirname, join } = require('path')
+
+const ftp = require('basic-ftp')
+const fs = require('fs-extra')
 const glob = require('glob')
+const compact = require('lodash.compact')
+const uniq = require('lodash.uniq')
+const ProgressBar = require('progress')
 
-const ftp = new FtpDeploy()
-
-const config = {
-  host: FTP_HOST,
-  localRoot: __dirname + LOCAL_PATH,
-  password: FTP_PASSWORD,
-  port: 21,
-  remoteRoot: '/',
-  user: FTP_USER
-}
+const client = new ftp.Client()
 
 const lastDeployed = async () => {
   const exists = await fs.exists(LAST_DEPLOY)
 
   if (!exists) {
-    await fs.writeFile(LAST_DEPLOY, '0', 'utf8')
+    await fs.outputFile(LAST_DEPLOY, '0', 'utf8')
   }
 
   const time = await fs.readFile(LAST_DEPLOY, 'utf8')
@@ -33,18 +28,27 @@ const lastDeployed = async () => {
 
 const find = path => {
   return new Promise((resolve, reject) => {
-    glob(path, (err, files) => {
-      if (err) {
-        return reject()
-      }
+    glob(
+      path,
+      {
+        absolute: true
+      },
+      (err, files) => {
+        if (err) {
+          return reject()
+        }
 
-      resolve(files)
-    })
+        resolve(files)
+      }
+    )
   })
 }
 
-const includedFiles = async (files, time) => {
+const eligibleFiles = async path => {
   const eligible = []
+
+  const files = await find(path)
+  const time = await lastDeployed()
 
   for (file of files) {
     if (await updatedAfter(file, time)) {
@@ -52,7 +56,7 @@ const includedFiles = async (files, time) => {
     }
   }
 
-  return eligible.map(file => file.substr(LOCAL_PATH.length))
+  return eligible
 }
 
 const updatedAfter = async (path, time) => {
@@ -61,33 +65,47 @@ const updatedAfter = async (path, time) => {
   return file.isFile() && file.mtime > time
 }
 
-const updateLastDeployment = () => fs.writeFile(LAST_DEPLOY, Date.now(), 'utf8')
+const getRemotePath = file => file.substr(join(__dirname, LOCAL_PATH).length)
+
+const updateLastDeployment = () =>
+  fs.outputFile(LAST_DEPLOY, Date.now(), 'utf8')
 
 const run = async () => {
-  const time = await lastDeployed()
+  const files = await eligibleFiles('public/**/*')
 
-  const files = await find('public/**/*.*')
+  const directories = compact(
+    uniq(files.map(file => dirname(getRemotePath(file))))
+  ).sort()
 
-  config.include = await includedFiles(files, time)
-
-  ftp.deploy(config, async err => {
-    if (err) {
-      throw err
-    }
-
-    await updateLastDeployment()
-
-    console.log('Deployed!')
+  const bar = new ProgressBar('Uploading files :current/:total', {
+    total: files.length + directories.length
   })
 
-  ftp.on('uploaded', ({ totalFileCount, transferredFileCount, filename }) =>
-    console.log(
-      `${transferredFileCount}/${totalFileCount}`,
-      '\t',
-      filename,
-      'uploaded'
-    )
-  )
+  await client.access({
+    host: FTP_HOST,
+    user: FTP_USER,
+    password: FTP_PASSWORD
+  })
+
+  for (const directory of directories) {
+    await client.ensureDir(directory)
+
+    bar.tick()
+  }
+
+  for (const file of files) {
+    const remoteFile = getRemotePath(file)
+
+    const stream = fs.createReadStream(file)
+
+    await client.upload(stream, remoteFile)
+
+    bar.tick()
+  }
+
+  client.close()
+
+  await updateLastDeployment()
 }
 
 run()
