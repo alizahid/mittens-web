@@ -1,0 +1,58 @@
+// reset
+
+*,
+*:after,
+*:before {
+  border-radius: 0;
+  box-sizing: border-box;
+  font-weight: normal;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+// global
+
+a {
+  color: #ff5058;
+  text-decoration: none;
+  transition: 300ms;
+
+  &:hover {
+    color: lighten(#ff5058, 10%);
+  }
+}
+
+body {
+  background: #fff;
+  color: #111;
+  cursor: default;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  color: #5dc3c4;
+}
+
+h1 {
+  margin-top: 1em;
+}
+
+img {
+  border: none;
+  max-width: 100%;
+  vertical-align: top;
+}
+
+p {
+  line-height: 1.4;
+  margin: 1em 0;
+}

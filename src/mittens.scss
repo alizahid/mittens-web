@@ -1,0 +1,44 @@
+main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+
+  header {
+    img {
+      height: calc(170px / 2);
+      width: calc(200px / 2);
+    }
+  }
+
+  section {
+    margin: 2em 0;
+
+    a {
+      align-items: center;
+      background: #5dc3c4;
+      border-radius: 2em;
+      color: #fff;
+      display: flex;
+      font-weight: 500;
+      padding: 1em 1.5em;
+
+      &:hover {
+        background: darken(#5dc3c4, 10%);
+        color: #fff;
+      }
+    }
+  }
+
+  footer {
+    p {
+      color: #999;
+
+      img {
+        height: 1.4em;
+      }
+    }
+  }
+}
