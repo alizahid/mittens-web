@@ -19,7 +19,7 @@ export default class Mittens extends Component {
           </p>
         </header>
         <section>
-          <a href="https://designplox.com">download on app store</a>
+          <a href="https://testflight.apple.com/join/byctBk1Y">download on TestFlight</a>
         </section>
         <footer>
           <p>
