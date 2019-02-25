@@ -19,7 +19,7 @@ export default class Mittens extends Component {
           </p>
         </header>
         <section>
-          <a href="https://testflight.apple.com/join/byctBk1Y">download on TestFlight</a>
+          <a href="https://itunes.apple.com/us/app/mittens/id1453383568?mt=8">download on App Store</a>
         </section>
         <footer>
           <p>
