@@ -19,7 +19,12 @@ export default class Mittens extends Component {
           </p>
         </header>
         <section>
-          <a href="https://itunes.apple.com/us/app/mittens/id1453383568?mt=8">download on App Store</a>
+          <a href="https://itunes.apple.com/us/app/mittens/id1453383568?mt=8">
+            App Store
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=app.mittens">
+            Google Play
+          </a>
         </section>
         <footer>
           <p>
