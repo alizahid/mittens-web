@@ -15,7 +15,9 @@ main {
 
   section {
     display: flex;
-    margin: 2em 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 1em 0;
 
     a {
       align-items: center;
@@ -24,15 +26,12 @@ main {
       color: #fff;
       display: flex;
       font-weight: 500;
+      margin: 1em;
       padding: 1em 1.5em;
 
       &:hover {
         background: darken(#5dc3c4, 10%);
         color: #fff;
-      }
-
-      &:not(:first-child) {
-        margin-left: 2em;
       }
     }
   }

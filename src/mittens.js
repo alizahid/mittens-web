@@ -25,6 +25,7 @@ export default class Mittens extends Component {
           <a href="https://play.google.com/store/apps/details?id=app.mittens">
             Google Play
           </a>
+          <a href="https://github.com/mittens-the-cat">GitHub</a>
         </section>
         <footer>
           <p>
