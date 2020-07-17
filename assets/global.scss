@@ -14,10 +14,10 @@ a {
   @apply text-primary duration-200 transition-all;
 
   &:hover {
-    @apply text-primary;
+    filter: brightness(1.2);
   }
 
   &:active {
-    @apply text-primary;
+    filter: brightness(0.8);
   }
 }
